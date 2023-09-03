@@ -4,7 +4,7 @@ This is a Github Action used to merge changes from remote.
 
 
 
-This is forked from [dabreadman](https://github.com/dabreadman/sync-upstream-repo), with me adding support for syncing private repos with public template.
+This is forked from [dabreadman](https://github.com/dabreadman/sync-upstream-repo), with me adding support for syncing private repos with public template and ability to preserve downstream files (using ours merge statergy).
 
 ## Use case
 
