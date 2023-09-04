@@ -32,9 +32,7 @@ if ! echo "$UPSTREAM_REPO" | grep '\.git'; then
   UPSTREAM_REPO="https://github.com/${UPSTREAM_REPO_PATH}.git"
 fi
 
-if [[ -n "$COMMIT_MSG" ]]; then
-  COMMIT_MSG_ARGS="-m $COMMIT_MSG"
-else 
+if [[ -z "$COMMIT_MSG" ]]; then
   COMMIT_MSG="Merge upstream"
 fi
 
@@ -67,7 +65,7 @@ esac
 
 git push origin
 
-MERGE_RESULT=$(git merge ${MERGE_ARGS} upstream/${UPSTREAM_BRANCH} ${COMMIT_MSG_ARGS})
+MERGE_RESULT=$(git merge ${MERGE_ARGS} upstream/${UPSTREAM_BRANCH})
 
 
 if [[ $MERGE_RESULT == "" ]] 
@@ -75,7 +73,7 @@ then
   exit 1
 elif [[ $MERGE_RESULT != *"Already up to date."* ]]
 then
-  git commit -m ${COMMIT_MSG}
+  git commit -am ${COMMIT_MSG}
   git push ${PUSH_ARGS} origin ${DOWNSTREAM_BRANCH} || exit $?
 fi
 
