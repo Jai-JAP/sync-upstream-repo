@@ -67,7 +67,7 @@ esac
 
 git push origin
 
-MERGE_RESULT=$(git merge ${MERGE_ARGS} upstream/${UPSTREAM_BRANCH} $COMMIT_MSG_ARGS)
+MERGE_RESULT=$(git merge ${MERGE_ARGS} upstream/${UPSTREAM_BRANCH} ${COMMIT_MSG_ARGS})
 
 
 if [[ $MERGE_RESULT == "" ]] 
@@ -75,7 +75,7 @@ then
   exit 1
 elif [[ $MERGE_RESULT != *"Already up to date."* ]]
 then
-  git commit -m "Merged upstream"
+  git commit -m ${COMMIT_MSG}
   git push ${PUSH_ARGS} origin ${DOWNSTREAM_BRANCH} || exit $?
 fi
 
