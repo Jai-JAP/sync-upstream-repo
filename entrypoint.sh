@@ -73,7 +73,7 @@ then
   exit 1
 elif [[ $MERGE_RESULT != *"Already up to date."* ]]
 then
-  git commit -am ${COMMIT_MSG}
+  git commit -am "${COMMIT_MSG}"
   git push ${PUSH_ARGS} origin ${DOWNSTREAM_BRANCH} || exit $?
 fi
 
