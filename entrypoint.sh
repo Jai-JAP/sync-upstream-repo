@@ -10,6 +10,7 @@ FETCH_ARGS=$5
 MERGE_ARGS=$6
 PUSH_ARGS=$7
 SPAWN_LOGS=$8
+COMMIT_MSG=$9
 
 if [[ -z "$GITHUB_TOKEN" ]]; then
   echo "Missing \$GITHUB_TOKEN"
@@ -29,6 +30,10 @@ fi
 
 if ! echo "$UPSTREAM_REPO" | grep '\.git'; then
   UPSTREAM_REPO="https://github.com/${UPSTREAM_REPO_PATH}.git"
+fi
+
+if [[ -n "$COMMIT_MSG" ]]; then
+  COMMIT_MSG_ARGS="-m $COMMIT_MSG"
 fi
 
 echo "UPSTREAM_REPO=$UPSTREAM_REPO"
@@ -60,7 +65,7 @@ esac
 
 git push origin
 
-MERGE_RESULT=$(git merge ${MERGE_ARGS} upstream/${UPSTREAM_BRANCH})
+MERGE_RESULT=$(git merge ${MERGE_ARGS} upstream/${UPSTREAM_BRANCH} $COMMIT_MSG_ARGS)
 
 
 if [[ $MERGE_RESULT == "" ]] 

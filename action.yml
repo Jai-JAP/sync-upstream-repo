@@ -33,6 +33,10 @@ inputs:
     description: Toggle to spawn `sync-upstream-repo` with time logs
     required: true
     default: false
+  commit_msg:
+    description: Custom message for git commit
+    required: false
+    default: ""
 
 runs:
   using: "docker"
@@ -46,6 +50,7 @@ runs:
     - ${{ inputs.merge_args }}
     - ${{ inputs.push_args }}
     - ${{ inputs.spawn_logs }}
+    - ${{ inputs.commit_msg }}
 
 branding:
   icon: "git-merge"
