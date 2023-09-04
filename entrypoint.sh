@@ -34,6 +34,8 @@ fi
 
 if [[ -n "$COMMIT_MSG" ]]; then
   COMMIT_MSG_ARGS="-m $COMMIT_MSG"
+else 
+  COMMIT_MSG="Merge upstream"
 fi
 
 echo "UPSTREAM_REPO=$UPSTREAM_REPO"
