@@ -34,6 +34,8 @@ env:
   PUSH_ARGS: ""
   # Optional toggle to spawn time logs (keeps action active) 
   SPAWN_LOGS: "false" # "true" or "false"
+  # Optional custom commit message
+  COMMIT_MSG: ""
 
 # This runs every day on 1801 UTC
 on:
@@ -57,6 +59,7 @@ jobs:
           merge_args: ${{ env.MERGE_ARGS }}
           push_args: ${{ env.PUSH_ARGS }}
           spawn_logs: ${{ env.SPAWN_LOGS }}
+          commit_msg: ${{ env.COMMIT_MSG }}
 ```
 
 This action syncs your repo (merge changes from `remote`) at branch `main` with the upstream repo every day on 0000 UTC.  
