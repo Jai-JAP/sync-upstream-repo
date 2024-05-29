@@ -45,6 +45,7 @@ git config user.name "${GITHUB_ACTOR}"
 git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 git config --local user.password ${GITHUB_TOKEN}
 git config --local merge.ours.driver true
+git config --local merge.theirs.driver "cp %B %A"
 
 git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
@@ -55,7 +56,7 @@ git remote -v
 git checkout ${DOWNSTREAM_BRANCH}
 
 case ${SPAWN_LOGS} in
-  (true)    echo -n "sync-upstream-repo https://github.com/dabreadman/sync-upstream-repo keeping CI alive."\
+  (true)    echo -n "sync-upstream-repo https://github.com/Jai-JAP/sync-upstream-repo keeping CI alive."\
             "UNIX Time: " >> sync-upstream-repo
             date +"%s" >> sync-upstream-repo
             git add sync-upstream-repo
