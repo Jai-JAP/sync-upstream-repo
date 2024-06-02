@@ -73,10 +73,9 @@ if [[ $MERGE_RESULT == "" ]]; then
   exit 1
 elif [[ $MERGE_RESULT != *"Already up to date."* ]]; then
   COMMIT_RESULT=$(git commit -m "${COMMIT_MSG}")
-  [[ $COMMIT_RESULT != *"nothing to commit, working tree clean"* ]] && exit 1 
+  [[ $? != 0 && ${COMMIT_RESULT##*\n} != *"nothing to commit, working tree clean"* ]] && exit 1 
   PUSH_RESULT=$(git push ${PUSH_ARGS} origin ${DOWNSTREAM_BRANCH})
-  [[ $PUSH_RESULT != *"Everything up-to-date"* ]] && exit 2
-  exit $?
+  [[ $? != 0 && $PUSH_RESULT != *"Everything up-to-date"* ]] && exit 2
 fi
 
 cd ..
