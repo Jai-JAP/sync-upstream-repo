@@ -69,13 +69,14 @@ git push origin
 MERGE_RESULT=$(git merge ${MERGE_ARGS} -m "${COMMIT_MSG}" upstream/${UPSTREAM_BRANCH})
 
 
-if [[ $MERGE_RESULT == "" ]] 
-then
+if [[ $MERGE_RESULT == "" ]]; then
   exit 1
-elif [[ $MERGE_RESULT != *"Already up to date."* ]]
-then
-  git commit -m "${COMMIT_MSG}" || exit $?
-  git push ${PUSH_ARGS} origin ${DOWNSTREAM_BRANCH} || exit $?
+elif [[ $MERGE_RESULT != *"Already up to date."* ]]; then
+  COMMIT_RESULT=$(git commit -m "${COMMIT_MSG}")
+  [[ $COMMIT_RESULT != *"nothing to commit, working tree clean"* ]] && exit 1 
+  PUSH_RESULT=$(git push ${PUSH_ARGS} origin ${DOWNSTREAM_BRANCH})
+  [[ $PUSH_RESULT != *"Everything up-to-date"* ]] && exit 2
+  exit $?
 fi
 
 cd ..
